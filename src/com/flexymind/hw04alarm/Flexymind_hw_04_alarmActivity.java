@@ -1,6 +1,7 @@
 package com.flexymind.hw04alarm;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TimePicker;
@@ -28,8 +29,8 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
         boolean on = ((ToggleButton) view).isChecked();
         
         if (on) {
-        	timePckr.setCurrentHour(15);
-            timePckr.setCurrentMinute(20);
+        	Intent intent = new Intent(this, Alarm.class);
+        	startActivity(intent);
         } else {
         	timePckr.setCurrentHour(9);
             timePckr.setCurrentMinute(0);
