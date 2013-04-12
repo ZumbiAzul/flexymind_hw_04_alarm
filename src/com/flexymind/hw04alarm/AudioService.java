@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 public class AudioService extends Service {
 	
-	MediaPlayer mMediaPlayer = null;
+	MediaPlayer mediaPlayer = null;
 	
 	public void onCreate() {
 		super.onCreate();
@@ -21,6 +21,8 @@ public class AudioService extends Service {
 	
 	public void onDestroy() {
 		super.onDestroy();
+		mediaPlayer.release();
+		mediaPlayer = null;
 	}
 
 	@Override
@@ -31,7 +33,7 @@ public class AudioService extends Service {
 	
 	void playMusic() {
 		Toast.makeText(getApplicationContext(), "AudioService created", Toast.LENGTH_LONG).show();
-		MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.music);
+		mediaPlayer = MediaPlayer.create(this, R.raw.music);
 		mediaPlayer.start(); // no need to call prepare(); create() does that for you       
 	}
 	
