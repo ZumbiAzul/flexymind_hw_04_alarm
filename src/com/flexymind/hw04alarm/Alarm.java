@@ -17,13 +17,19 @@ public class Alarm extends Activity {
 	public void onSnooze(View view) {
 		Intent intent = new Intent(this, AudioService.class);
 		stopService(intent);
-		finish();
+		Intent intent2 = new Intent(this, Flexymind_hw_04_alarmActivity.class);
+		intent2.putExtra("togglestate","true");
+		startActivity(intent2);
+		//finish();
 	}
 	
 	public void onAlarmOff(View view) {
 		Intent intent = new Intent(this, AudioService.class);
 		stopService(intent);
-		finish();
+		Intent intent2 = new Intent(this, Flexymind_hw_04_alarmActivity.class);
+		intent2.putExtra("togglestate","false");
+		startActivity(intent2);
+		//finish();
 	}
 
 }

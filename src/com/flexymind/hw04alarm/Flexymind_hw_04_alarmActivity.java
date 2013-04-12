@@ -22,6 +22,11 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
         tglBtn = (ToggleButton)findViewById(R.id.toggleButton1);
         timePckr.setCurrentHour(9);
         timePckr.setCurrentMinute(0);
+        
+        Intent intent2 = getIntent();
+        String tglstate = intent2.getStringExtra("togglestate");
+        boolean state = Boolean.parseBoolean(tglstate);
+        tglBtn.setChecked(state);
     }
     
     public void onToggleClicked(View view) {
