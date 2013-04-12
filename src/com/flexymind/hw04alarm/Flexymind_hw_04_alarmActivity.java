@@ -1,6 +1,8 @@
 package com.flexymind.hw04alarm;
 
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +15,7 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
 	
 	TimePicker timePckr;
 	ToggleButton tglBtn;
+	Timer timer;
 	
     /** Called when the activity is first created. */
     @Override
@@ -38,13 +41,32 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
     public void onToggleClicked(View view) {
         // Is the toggle on?
         boolean on = ((ToggleButton) view).isChecked();
+        timer = new Timer("DigitalClock");
+        
+        TimerTask taaask = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(doTask);
+            }
+        };
         
         if (on) {
-        	Intent intent = new Intent(this, Alarm.class);
-        	startActivity(intent);
+        	timer.schedule(taaask, 1000);
         } else {
         	timePckr.setCurrentHour(9);
             timePckr.setCurrentMinute(0);
-        }
+        }       
     }
+    
+    final Runnable doTask = new Runnable() {
+        public void run() {
+           onAlarm();
+        }
+    };
+    
+    public void onAlarm() {
+    	Intent intent = new Intent(this, Alarm.class);
+    	startActivity(intent);
+    }
+    
 }
