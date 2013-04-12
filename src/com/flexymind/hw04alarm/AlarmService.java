@@ -12,7 +12,7 @@ public class AlarmService extends Service {
 	}
 	
 	public int onStartCommand(Intent intent, int flags, int startID) {
-		someTask();
+		beginDuty();
 		return super.onStartCommand(intent, flags, startID);
 	}
 	
@@ -26,7 +26,7 @@ public class AlarmService extends Service {
 		return null;
 	}
 	
-	void someTask() {
+	void beginDuty() {
 		Toast.makeText(getApplicationContext(), "AlarmService created", Toast.LENGTH_LONG).show();
 	}
 

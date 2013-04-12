@@ -1,5 +1,7 @@
 package com.flexymind.hw04alarm;
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +22,12 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
         
         timePckr = (TimePicker)findViewById(R.id.timePicker1);
         tglBtn = (ToggleButton)findViewById(R.id.toggleButton1);
-        timePckr.setCurrentHour(9);
-        timePckr.setCurrentMinute(0);
+        
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        timePckr.setCurrentHour(hour);
+        timePckr.setCurrentMinute(minute);
         
         Intent intent2 = getIntent();
         String tglstate = intent2.getStringExtra("togglestate");
