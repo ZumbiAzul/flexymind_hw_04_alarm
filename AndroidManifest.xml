@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name="Alarm"></activity>
+        <service android:name="AlarmService"></service>
+        <service android:name="AudioService"></service>
     </application>
 
 </manifest>
