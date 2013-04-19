@@ -8,9 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class Flexymind_hw_04_alarmActivity extends Activity {
@@ -18,7 +16,6 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
 	TimePicker timePckr;
 	ToggleButton tglBtn;
 	Timer timer;
-	TextView txt;
 	
     /** Called when the activity is first created. */
     @Override
@@ -30,7 +27,6 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
         
         timePckr = (TimePicker)findViewById(R.id.timePicker1);
         tglBtn = (ToggleButton)findViewById(R.id.toggleButton1);
-        txt = (TextView)findViewById(R.id.textView1);
         
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -42,6 +38,31 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
         String tglstate = intent2.getStringExtra("togglestate");
         boolean state = Boolean.parseBoolean(tglstate);
         tglBtn.setChecked(state);
+        
+        TimerTask taaask = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(doTask);
+            }
+        };
+        
+        if (state==true) {
+        	timer = new Timer("DigitalClock");
+        	Calendar currentTime = Calendar.getInstance();
+        	int chh = currentTime.get(Calendar.HOUR_OF_DAY);
+            int cmm = currentTime.get(Calendar.MINUTE);
+            int css = currentTime.get(Calendar.SECOND);
+            int cms = currentTime.get(Calendar.MILLISECOND);
+        	
+            int hh = timePckr.getCurrentHour();
+            int mm = timePckr.getCurrentMinute();
+            int current_ms = ((chh*60+cmm)*60+css)*1000+cms;
+            int alarm_ms = (hh*60+mm+1)*60*1000;
+            int diff_time = alarm_ms-current_ms;
+        	
+        	timer.schedule(taaask,diff_time);
+        }
+        
         
         Intent intent3 = getIntent();
         String close_permission = intent3.getStringExtra("close");
