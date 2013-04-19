@@ -8,7 +8,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class Flexymind_hw_04_alarmActivity extends Activity {
@@ -16,6 +18,7 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
 	TimePicker timePckr;
 	ToggleButton tglBtn;
 	Timer timer;
+	TextView txt;
 	
     /** Called when the activity is first created. */
     @Override
@@ -27,6 +30,7 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
         
         timePckr = (TimePicker)findViewById(R.id.timePicker1);
         tglBtn = (ToggleButton)findViewById(R.id.toggleButton1);
+        txt = (TextView)findViewById(R.id.textView1);
         
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -49,6 +53,20 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
         // Is the toggle on?
         boolean on = ((ToggleButton) view).isChecked();
         timer = new Timer("DigitalClock");
+        Calendar currentTime = Calendar.getInstance();
+        
+        int hh = timePckr.getCurrentHour();
+        int mm = timePckr.getCurrentMinute();
+        int chh = currentTime.get(Calendar.HOUR_OF_DAY);
+        int cmm = currentTime.get(Calendar.MINUTE);
+        int css = currentTime.get(Calendar.SECOND);
+        int cms = currentTime.get(Calendar.MILLISECOND);
+        
+        int current_ms = ((chh*60+cmm)*60+css)*1000+cms;
+        int alarm_ms = (hh*60+mm)*60*1000;
+        int diff_time = alarm_ms-current_ms;
+        
+        if (diff_time<0) diff_time=24*60*60*1000-Math.abs(alarm_ms-current_ms);
         
         TimerTask taaask = new TimerTask() {
             @Override
@@ -58,7 +76,7 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
         };
         
         if (on) {
-        	timer.schedule(taaask, 1000);
+        	timer.schedule(taaask,diff_time);
         } else {
         	timePckr.setCurrentHour(9);
             timePckr.setCurrentMinute(0);
