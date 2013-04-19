@@ -23,6 +23,8 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        boolean close_prmssn = false;
+        
         timePckr = (TimePicker)findViewById(R.id.timePicker1);
         tglBtn = (ToggleButton)findViewById(R.id.toggleButton1);
         
@@ -36,6 +38,11 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
         String tglstate = intent2.getStringExtra("togglestate");
         boolean state = Boolean.parseBoolean(tglstate);
         tglBtn.setChecked(state);
+        
+        Intent intent3 = getIntent();
+        String close_permission = intent3.getStringExtra("close");
+        close_prmssn = Boolean.parseBoolean(close_permission);
+        if (close_prmssn==true) finish();
     }
     
     public void onToggleClicked(View view) {
@@ -68,5 +75,15 @@ public class Flexymind_hw_04_alarmActivity extends Activity {
     	Intent intent = new Intent(this, Alarm.class);
     	startActivity(intent);
     }
+    
+    @Override
+	public void onBackPressed() { // method for exit confirmation
+	   finish();
+       Intent intent5 = new Intent(Intent.ACTION_MAIN); 
+       intent5.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+       intent5.addCategory(Intent.CATEGORY_HOME); 
+       intent5.putExtra("close","true");
+       startActivity(intent5);
+	}
     
 }
