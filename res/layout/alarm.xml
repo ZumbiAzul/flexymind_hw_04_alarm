@@ -27,6 +27,7 @@
             android:layout_marginRight="20dip"
             android:text="@string/snooze"
             android:textSize="20sp"
+            android:onClick="onSnooze"
             android:gravity="left" />
         <Button
             android:id="@+id/button2"
@@ -36,6 +37,7 @@
             android:layout_marginLeft="20dip"
             android:textSize="20sp"
             android:text="@string/alarmoff"
+            android:onClick="onAlarmOff"
             android:gravity="right" />"
 
     </LinearLayout>
